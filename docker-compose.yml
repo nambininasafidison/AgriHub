@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://mongo:27017/agricom
+      - MONGO_INITDB_ROOT_USERNAME=sass
+      - MONGO_INITDB_ROOT_PASSWORD=realpasssass
+      - MONGO_INITDB_DATABASE=admin
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_DATABASE=agricom
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=062013
+      - JWT_SECRET=sass-secret-key
+      - ADMIN_BYPASS_TOKEN=admin-bypass-token
+    depends_on:
+      - mongo
+      - postgres
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=sass
+      - MONGO_INITDB_ROOT_PASSWORD=realpasssass
+      - MONGO_INITDB_DATABASE=admin
+    volumes:
+      - mongo-data:/data/db
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=062013
+      - POSTGRES_DB=agricom
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  mongo-data:
+  postgres-data:
