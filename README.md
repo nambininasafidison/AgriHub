@@ -63,7 +63,7 @@ pnpm dev
 
 ## Database Structure
 
-### PostgreSQL (Relational Data)
+### t (Relational Data)
 
 - Users and authentication
 - Orders and transactions
